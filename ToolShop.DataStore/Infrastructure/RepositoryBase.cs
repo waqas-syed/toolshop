@@ -12,7 +12,7 @@ namespace ToolShop.DataStore.Infrastructure
     /// implement the interface
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class RepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         private ToolsDbContext _toolsDbContext;
         private readonly IDbSet<T> _dbSet;
