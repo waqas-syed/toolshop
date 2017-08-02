@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ToolShop.Presentation.ViewModels.CategoryViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        @foreach (var category in Model)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @Html.ActionLink("View All " + category.Name, "Index", new {category = category.Name}, new { @class = "pull-right"})
+                    @using (@Html.BeginForm("Filter", "Home", new {category = category.Name}, FormMethod.Post, new {@class = "navbar-form"}))
+                    {
+                        @Html.TextBox("productName", null, new {@class = "form-control", placeholder = "Search in " + category.Name })
+                    }
+                </div>
+                @foreach (var product in category.Products)
+                {
+                    @Html.Partial("Product", product)
+                }
+                <div class="panel-footer">
+                    @using(@Html.BeginForm("Create", "Home", FormMethod.Post, new {enctype="multipart/form-data", @class = "form-inline"}))
+                    {
+                        @Html.Hidden("CategoryId", category.Id)
+                        <div class="form-group">
+                            <label class="=sr-only" for="file">File</label>
+                            <input type="file" class="form-control" name ="file" placeholder="Select File"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="=sr-only" for="Name">Name</label>
+                            <input type="text" class="form-control" name="productName" placeholder="Name" />
+                        </div>
+                        <div class="form-group">
+                            <label class="=sr-only" for="Description">Description</label>
+                            <input type="text" class="form-control" name="productDescription" placeholder="Description" />
+                        </div>
+                        <div class="form-group">
+                            <label class="=sr-only" for="Price">Price</label>
+                            <input type="text" class="form-control" name="productPrice" placeholder="Price" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

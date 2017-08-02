@@ -1,0 +1,20 @@
+﻿@using System.Globalization
+@model IEnumerable<ToolShop.Presentation.ViewModels.ProductViewModel>
+@{
+    ViewBag.Title = "Filter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        @foreach (var product in Model)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @Html.Label(product.Name)
+                </div>
+                @Html.Partial("Product", product)
+            </div>
+        }
+    </div>
+</div>
